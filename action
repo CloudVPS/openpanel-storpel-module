@@ -1,26 +1,91 @@
 #!/bin/sh
+#
+# This is a reference module showcasing the shell API for writing
+# OpenPanel modules.
+
+# Include the shell API wrapper
 . /var/opencore/api/sh/module.sh
 
+# ----------------------------------------------------------------------------
+# Implementation of the create method
+# ----------------------------------------------------------------------------
 module_create() {
+  # Get the id of the associated Actor (unix user). Not that we're
+  # actually using it at this point, but it's nice to know you
+  # can access the id of parents in the object chain.
   actor_id=`coreval Actor.id`
+  
+  # In module.xml we defined one parameter for our class: 'model'. This
+  # parameter will be passed from the user interface.
   model=`coreval Storpel.model`
+  
+  # Let's wonder about an arbitrary error condition, in this case we
+  # will reject Storpel objects with their 'model' parameter set to
+  # 100.
+  if [ "$model" = "100" ]; then
+  
+    # The exiterror command will send the error xml and exit the
+    # module.
+    exiterror "Model out of production"
+  fi
+  
+  # Currently it is best to assume the creation id is not part of the
+  # actual object. Instead, three values are kept inside OpenCORE:Session,
+  # to wit:
+  #
+  # OpenCORE:Session.metaid    A human-created id, if it is set.
+  # OpenCORE:Session.uuid      The internal uuid for the object
+  # OpenCORE:Session.objectid  If available, a human-created id. If not, a uuid.
   id=`coreval OpenCORE:Session.objectid`
+  
+  # Create a staging file. The setting of <uniquein>class</uniquein> inside
+  # module.xml guarantees the metaid is globally unique, so it is safe to
+  # use the objectid as a filename.
   echo "$model" > "${id}.storpel"
+  
+  # Call authd to install the file from our staging directory straight
+  # into the /etc/storpels system directory. If you want it simpler,
+  # you can still choose to bypass authd and just offer full access to
+  # the configuration directory of your program to the opencore group. The
+  # authd system is intended to add a layer of auditing and authorization
+  # making it less likely that your module gets subverted to act beyond its
+  # intended operations.
   authd installfile "${id}.storpel" /etc/storpels
+  
+  # There is no need to worry about authd failures. If an authd command
+  # fails, the program wil exit itself with an error message and a
+  # rollback. If this is not what you want, you can call do_authd() instead
+  # and check its return value for failures.
 }
 
+# ----------------------------------------------------------------------------
+# Implementation of the delete method
+# ----------------------------------------------------------------------------
 module_delete() {
+  # We'll only need the objectid for this task
   id=`coreval OpenCORE:Session.objectid`
+  
+  # Leave it to authd
   authd deletefile "/etc/storpels/${id}.storpel"
+  
+  # Delete the local staging file as well.
   rm -f "${id}.storpel"
 }
 
+# ----------------------------------------------------------------------------
+# Implementation of the update method
+# ----------------------------------------------------------------------------
 module_update() {
+  # This looks mostly like module_create, because we'll just re-write the
+  # file on both levels.
   id=`coreval OpenCORE:Session.objectid`
   model=`coreval Storpel.model`
   echo "$model" > "${id}.storpel"
   authd installfile "${id}.storpel" /etc/storpels
 }
 
+# ----------------------------------------------------------------------------
+# Enable actual handling of module drudgery.
+# ----------------------------------------------------------------------------
 implement Storpel.module
 
