@@ -1,0 +1,40 @@
+<com.openpanel.opencore.module>
+	<name>Storpel.module</name>
+	<uuid>b7b26fd8-6996-4c1b-877f-a0fafd397a58</uuid>
+	<version>1.0</version>
+	<languages en_EN />
+	<classes>
+		<class id="Storpel">
+			<uuid>5437797e-7a3e-46d8-8bb1-d43ec457e18a</uuid>
+			<version>1</version>
+			<indexing>manual</indexing>
+			<shortname>storpel</shortname>
+			<description>Storpel</description>
+			<allchildren>false</allchildren>
+			<uniquein>class</uniquein>
+			<requires>Actor</requires>
+			<menuclass>users</menuclass>
+			<parameters>
+				<p id="model" type="string">Model</p>
+			</parameters>
+
+			<capabilities create delete update />
+
+			<layout>
+				<opt id="model" enabled visible required regexp="">Basic</opt>
+			</layout>
+		</class>
+	</classes>
+
+	<implementation>
+		<apitype>commandline</apitype>
+		<getconfig>false</getconfig>
+	</implementation>
+
+	<authdops>
+		<fileops>
+			<fileop pattern="*.storpel" user="root" group="root" perms="0644">/etc/storpels</fileop>
+		</fileops>
+	</authdops>
+</com.openpanel.opencore.module>
+	

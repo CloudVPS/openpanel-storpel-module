@@ -1,0 +1,26 @@
+#!/bin/sh
+. /var/opencore/api/sh/module.sh
+
+module_create() {
+  actor_id=`coreval Actor.id`
+  model=`coreval Storpel.model`
+  id=`coreval OpenCORE:Session.objectid`
+  echo "$model" > "${id}.storpel"
+  authd installfile "${id}.storpel" /etc/storpels
+}
+
+module_delete() {
+  id=`coreval OpenCORE:Session.objectid`
+  authd deletefile "/etc/storpels/${id}.storpel"
+  rm -f "${id}.storpel"
+}
+
+module_update() {
+  id=`coreval OpenCORE:Session.objectid`
+  model=`coreval Storpel.model`
+  echo "$model" > "${id}.storpel"
+  authd installfile "${id}.storpel" /etc/storpels
+}
+
+implement Storpel.module
+
