@@ -7,9 +7,9 @@
 . /var/opencore/api/sh/module.sh
 
 # ----------------------------------------------------------------------------
-# Implementation of the create method
+# Constructor for class Storpel
 # ----------------------------------------------------------------------------
-module_create() {
+Storpel::create() {
   # Get the id of the associated Actor (unix user). Not that we're
   # actually using it at this point, but it's nice to know you
   # can access the id of parents in the object chain.
@@ -59,9 +59,9 @@ module_create() {
 }
 
 # ----------------------------------------------------------------------------
-# Implementation of the delete method
+# Destructor for class Storpel
 # ----------------------------------------------------------------------------
-module_delete() {
+Storpel::delete() {
   # We'll only need the objectid for this task
   id=`coreval OpenCORE:Session.objectid`
   
@@ -73,15 +73,43 @@ module_delete() {
 }
 
 # ----------------------------------------------------------------------------
-# Implementation of the update method
+# Update method for class Storpel
 # ----------------------------------------------------------------------------
-module_update() {
+Storpel::update() {
   # This looks mostly like module_create, because we'll just re-write the
   # file on both levels.
   id=`coreval OpenCORE:Session.objectid`
   model=`coreval Storpel.model`
   echo "$model" > "${id}.storpel"
   authd installfile "${id}.storpel" /etc/storpels
+}
+
+# ----------------------------------------------------------------------------
+# Constructor for class StorpelService
+# ----------------------------------------------------------------------------
+StorpelService::create() {
+  listenport=`coreval StorpelService.listenport`
+  servername=`coreval StorpelService.servername`
+  cat > storpeld.conf << _EOF_
+[system]
+ListenPort = $listenport
+ServerName = "$servername"
+_EOF_
+  authd installfile storpeld.conf /etc
+}
+
+# ----------------------------------------------------------------------------
+# Update method for class StorpelService
+# ----------------------------------------------------------------------------
+StorpelService::update() {
+  StorpelService::create
+}
+
+# ----------------------------------------------------------------------------
+# Destructor for class StorpelService
+# ----------------------------------------------------------------------------
+StorpelService::delete() {
+  exiterror "Delete not implemented"
 }
 
 # ----------------------------------------------------------------------------

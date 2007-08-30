@@ -25,7 +25,7 @@
 			     to distinguish incompatible versions of the same
 			     class, with regards to handling of module up- or
 			     crossrades -->
-			<uuid>5437797e-7a3e-46d8-8bb1-d43ec457e18a</uuid>
+			<uuid>213.196.12.199</uuid>
 			
 			<!-- This integer should be increased whenever the lay-out
 			     of the class changes in such a way that objects for
@@ -87,6 +87,27 @@
 				<opt id="model" enabled visible required regexp="">Basic</opt>
 			</layout>
 		</class>
+		<class id="StorpelService">
+		  <uuid>9e1c09e6-281e-403f-ae8e-e8d700b892e0</uuid>
+		  <version>1</version>
+		  <indexing>auto</indexing>
+		  <shortname>storpeld</shortname>
+		  <description>Global Confiuration for the Storpel Service</description>
+		  <allchildren>false</allchildren>
+		  <uniquein>class</uniquein>
+		  <maxinstances>1</maxinstances>
+		  <singleton>storpeld</singleton>
+		  <parameters>
+		    <p id="listenport" type="integer">TCP Listen Port</p>
+		    <p id="servername" type="string">Advertised Server Name</p>
+		  </parameters>
+		  <layout>
+		    <opt id="listenport" enabled visible required regexp="">1337</opt>
+		    <opt id="servername" enabled visible required regexp="">My Storpel Service</opt>
+		  </layout>
+		  <capabilities create update delete />
+		</class>
+		  
 	</classes>
 
 	<!-- Basic information about how the module interacts with opencore -->
@@ -112,6 +133,7 @@
 			     to be installed into the /etc/storpels directory with the
 			     user/group of root/root and a mode of 0644 -->
 			<fileop pattern="*.storpel" user="root" group="root" perms="0644">/etc/storpels</fileop>
+			<fileop pattern="storpel.conf" user="root" group="root" perms="0644">/etc</fileop>
 		</fileops>
 	</authdops>
 </com.openpanel.opencore.module>
