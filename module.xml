@@ -122,7 +122,7 @@
 		     the module when it is first installed. This can be used
 		     to pick up pre-existing configuration from the system at
 		     install time -->
-		<getconfig>false</getconfig>
+		<getconfig>true</getconfig>
 	</implementation>
 
 	<!-- Options related to the module's use of authd -->

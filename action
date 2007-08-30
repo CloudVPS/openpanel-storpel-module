@@ -119,6 +119,20 @@ StorpelService::delete() {
   exiterror "Delete not implemented"
 }
 
+# ----------------------------------------------------------------------------
+# Install-time configuration
+# ----------------------------------------------------------------------------
+Module::getconfig() {
+  cat << _EOF_
+  <dict id="StorpelService" type="class">
+    <dict id="storpeld">
+      <integer id="listenport">1234</integer>
+      <string id="servername">Default Servername</string>
+    </dict>
+  </dict>
+_EOF_
+}
+
 log "Module called, CLASSID=$CLASSID"
 
 # ----------------------------------------------------------------------------
