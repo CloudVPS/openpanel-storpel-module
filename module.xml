@@ -92,7 +92,7 @@
 		  <version>1</version>
 		  <indexing>manual</indexing>
 		  <shortname>storpeld</shortname>
-		  <description>Global Confiuration for the Storpel Service</description>
+		  <description>Global Configuration for the Storpel Service</description>
 		  <allchildren>false</allchildren>
 		  <uniquein>class</uniquein>
 		  <maxinstances>1</maxinstances>
