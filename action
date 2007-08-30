@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # This is a reference module showcasing the shell API for writing
 # OpenPanel modules.

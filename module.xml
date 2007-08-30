@@ -133,7 +133,7 @@
 			     to be installed into the /etc/storpels directory with the
 			     user/group of root/root and a mode of 0644 -->
 			<fileop pattern="*.storpel" user="root" group="root" perms="0644">/etc/storpels</fileop>
-			<fileop pattern="storpel.conf" user="root" group="root" perms="0644">/etc</fileop>
+			<fileop pattern="storpeld.conf" user="root" group="root" perms="0644">/etc</fileop>
 		</fileops>
 	</authdops>
 </com.openpanel.opencore.module>
