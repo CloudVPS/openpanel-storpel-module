@@ -6,6 +6,11 @@
 # Include the shell API wrapper
 . /var/opencore/api/sh/module.sh
 
+log() {
+  dt=`date`
+  echo "$dt $*" >> /tmp/storpelmodule.log
+}
+
 # ----------------------------------------------------------------------------
 # Constructor for class Storpel
 # ----------------------------------------------------------------------------
@@ -18,6 +23,8 @@ Storpel::create() {
   # In module.xml we defined one parameter for our class: 'model'. This
   # parameter will be passed from the user interface.
   model=`coreval Storpel.model`
+  
+  log "Storpel::create actor_id=$actor_id model=$model"
   
   # Let's wonder about an arbitrary error condition, in this case we
   # will reject Storpel objects with their 'model' parameter set to
@@ -111,6 +118,8 @@ StorpelService::update() {
 StorpelService::delete() {
   exiterror "Delete not implemented"
 }
+
+log "Module called, CLASSID=$CLASSID"
 
 # ----------------------------------------------------------------------------
 # Enable actual handling of module drudgery.
