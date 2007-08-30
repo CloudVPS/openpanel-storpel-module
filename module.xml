@@ -25,7 +25,7 @@
 			     to distinguish incompatible versions of the same
 			     class, with regards to handling of module up- or
 			     crossrades -->
-			<uuid>213.196.12.199</uuid>
+			<uuid>5437797e-7a3e-46d8-8bb1-d43ec457e18a</uuid>
 			
 			<!-- This integer should be increased whenever the lay-out
 			     of the class changes in such a way that objects for
