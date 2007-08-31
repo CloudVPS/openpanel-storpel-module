@@ -41,7 +41,11 @@ Storpel::create() {
   # Create a staging file. The setting of <uniquein>class</uniquein> inside
   # module.xml guarantees the metaid is globally unique, so it is safe to
   # use the objectid as a filename.
-  echo "$model" > "${id}.storpel"
+  echo "Model $model" > "${id}.storpel"
+  echo "Hostname ${id}" >> "${id}.storpel"
+  listaliases | while read a; do
+    echo "Alias ${a}" >> "${id}.storpel"
+  done
   
   # Call authd to install the file from our staging directory straight
   # into the /etc/storpels system directory. If you want it simpler,

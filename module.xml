@@ -41,7 +41,7 @@
 
 			<!-- Defines the context of this class: Instances should
 			     have an Actor object as their parent -->			
-			<requires>Actor</requires>
+			<requires>Domain</requires>
 
 			<!-- The name of this class as visible from the command line
 			     interface. It only needs to be unique in the context of
@@ -67,6 +67,9 @@
 			<!-- FIXME: This value seems to be already supplied by gui.xml
 			     and may become obsolete -->
 			<menuclass>users</menuclass>
+			
+			<!-- Enforce domain/sub-domain relationship on object-ids -->
+			<parentrealm>domainsuffix</parentrealm>
 			
 			<!-- The actual parameters (properties) of this class -->
 			<parameters>
