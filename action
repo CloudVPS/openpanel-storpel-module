@@ -13,11 +13,11 @@ Storpel::create() {
   # Get the id of the associated Actor (unix user). Not that we're
   # actually using it at this point, but it's nice to know you
   # can access the id of parents in the object chain.
-  actor_id=`coreval Actor.id`
+  actor_id=`coreval Actor id`
   
   # In module.xml we defined one parameter for our class: 'model'. This
   # parameter will be passed from the user interface.
-  model=`coreval Storpel.model`
+  model=`coreval Storpel model`
   
   # Let's wonder about an arbitrary error condition, in this case we
   # will reject Storpel objects with their 'model' parameter set to
@@ -36,7 +36,7 @@ Storpel::create() {
   # OpenCORE:Session.metaid    A human-created id, if it is set.
   # OpenCORE:Session.uuid      The internal uuid for the object
   # OpenCORE:Session.objectid  If available, a human-created id. If not, a uuid.
-  id=`coreval OpenCORE:Session.objectid`
+  id=`coreval OpenCORE:Session objectid`
   
   # Create a staging file. The setting of <uniquein>class</uniquein> inside
   # module.xml guarantees the metaid is globally unique, so it is safe to
@@ -63,7 +63,7 @@ Storpel::create() {
 # ----------------------------------------------------------------------------
 Storpel::delete() {
   # We'll only need the objectid for this task
-  id=`coreval OpenCORE:Session.objectid`
+  id=`coreval OpenCORE:Session objectid`
   
   # Leave it to authd
   authd deletefile "/etc/storpels/${id}.storpel"
@@ -78,8 +78,8 @@ Storpel::delete() {
 Storpel::update() {
   # This looks mostly like module_create, because we'll just re-write the
   # file on both levels.
-  id=`coreval OpenCORE:Session.objectid`
-  model=`coreval Storpel.model`
+  id=`coreval OpenCORE:Session objectid`
+  model=`coreval Storpel model`
   echo "$model" > "${id}.storpel"
   authd installfile "${id}.storpel" /etc/storpels
 }
@@ -88,8 +88,8 @@ Storpel::update() {
 # Constructor for class StorpelService
 # ----------------------------------------------------------------------------
 StorpelService::create() {
-  listenport=`coreval StorpelService.listenport`
-  servername=`coreval StorpelService.servername`
+  listenport=`coreval StorpelService listenport`
+  servername=`coreval StorpelService servername`
   cat > storpeld.conf << _EOF_
 [system]
 ListenPort = $listenport

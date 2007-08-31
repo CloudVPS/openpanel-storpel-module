@@ -87,6 +87,7 @@
 				<opt id="model" enabled visible required regexp="">Basic</opt>
 			</layout>
 		</class>
+		
 		<class id="StorpelService">
 		  <uuid>9e1c09e6-281e-403f-ae8e-e8d700b892e0</uuid>
 		  <version>1</version>
