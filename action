@@ -36,7 +36,7 @@ Storpel::create() {
   # OpenCORE:Session.metaid    A human-created id, if it is set.
   # OpenCORE:Session.uuid      The internal uuid for the object
   # OpenCORE:Session.objectid  If available, a human-created id. If not, a uuid.
-  id=`coreval OpenCORE:Session objectid`
+  id=`coreval Storpel id`
   
   # Create a staging file. The setting of <uniquein>class</uniquein> inside
   # module.xml guarantees the metaid is globally unique, so it is safe to
