@@ -43,8 +43,17 @@ Storpel::create() {
   # use the objectid as a filename.
   echo "Model $model" > "${id}.storpel"
   echo "Hostname ${id}" >> "${id}.storpel"
+  
+  # Go over the Domain -> Domain:Alias object list
   listaliases | while read a; do
     echo "Alias ${a}" >> "${id}.storpel"
+  done
+  
+  # Go over the StorpelUser sub-objects that we got thanks to
+  # allchildren.
+  coreval --loop Storpel StorpelUser | while read userid; do
+    password=`coreval Storpel StorpelUser "$userid" password`
+    echo "User ${userid}:${password}" >> "${id}.storpel"
   done
   
   # Call authd to install the file from our staging directory straight
@@ -80,12 +89,31 @@ Storpel::delete() {
 # Update method for class Storpel
 # ----------------------------------------------------------------------------
 Storpel::update() {
-  # This looks mostly like module_create, because we'll just re-write the
-  # file on both levels.
-  id=`coreval OpenCORE:Session objectid`
-  model=`coreval Storpel model`
-  echo "$model" > "${id}.storpel"
-  authd installfile "${id}.storpel" /etc/storpels
+  Storpel::create
+}
+
+# ----------------------------------------------------------------------------
+# Constructor for StorpelUser
+# ----------------------------------------------------------------------------
+StorpelUser::create() {
+  # Delegate to Storpel, it'll pick us up through allchildren
+  Storpel::update
+}
+
+# ----------------------------------------------------------------------------
+# Update method for StorpelUser
+# ----------------------------------------------------------------------------
+StorpelUser::update() {
+  # Delegate to Storpel, it'll pick us up through allchildren
+  Storpel::update
+}
+
+# ----------------------------------------------------------------------------
+# Destructor for StorpelUser
+# ----------------------------------------------------------------------------
+StorpelUser::delete() {
+  # Delegate to Storpel, it'll pick us up through allchildren
+  Storpel::update
 }
 
 # ----------------------------------------------------------------------------

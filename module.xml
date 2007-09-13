@@ -55,7 +55,7 @@
 			<!-- If set to true, this will trigger a complete dump of all
 			     child objects alongside the main object when it is updated
 			     -->
-			<allchildren>false</allchildren>
+			<allchildren>true</allchildren>
 			
 			<!-- Defines the constraints of the manual index. When set to
 			     'class', index values for this class should be
@@ -110,6 +110,23 @@
 		    <opt id="servername" enabled visible required regexp="">My Storpel Service</opt>
 		  </layout>
 		  <capabilities create update delete />
+		</class>
+		
+		<class id="StorpelUser">
+		  <uuid>8e468547-cc26-4489-b28f-047f3cbeb5ac</uuid>
+		  <version>1</version>
+		  <indexing>manual</indexing>
+		  <requires>Storpel</requires>
+		  <uniquein>parent</uniquein>
+		  <shortname>user</shortname>
+		  <description>Storpel User</description>
+		  <parameters>
+		    <p id="password" type="password" crypt="md5">Password</p>
+		  </parameters>
+		  <layout>
+		    <opt id="password" enabled visible required regexp="" />
+		  </layout>
+		  <capabilities create delete update />
 		</class>
 		  
 	</classes>
