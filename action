@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 # Constructor for class Storpel
 # ----------------------------------------------------------------------------
-Storpel::create() {
+Storpel.create() {
   # Get the id of the associated Actor (unix user). Not that we're
   # actually using it at this point, but it's nice to know you
   # can access the id of parents in the object chain.
@@ -29,13 +29,6 @@ Storpel::create() {
     exiterror "Model out of production"
   fi
   
-  # Currently it is best to assume the creation id is not part of the
-  # actual object. Instead, three values are kept inside OpenCORE:Session,
-  # to wit:
-  #
-  # OpenCORE:Session.metaid    A human-created id, if it is set.
-  # OpenCORE:Session.uuid      The internal uuid for the object
-  # OpenCORE:Session.objectid  If available, a human-created id. If not, a uuid.
   id=`coreval Storpel id`
   
   # Create a staging file. The setting of <uniquein>class</uniquein> inside
@@ -67,14 +60,14 @@ Storpel::create() {
   
   # There is no need to worry about authd failures. If an authd command
   # fails, the program wil exit itself with an error message and a
-  # rollback. If this is not what you want, you can call do_authd() instead
+  # rollback. If this is not what you want, you can call try_authd() instead
   # and check its return value for failures.
 }
 
 # ----------------------------------------------------------------------------
 # Destructor for class Storpel
 # ----------------------------------------------------------------------------
-Storpel::delete() {
+Storpel.delete() {
   # We'll only need the objectid for this task
   id=`coreval OpenCORE:Session objectid`
   
@@ -88,38 +81,38 @@ Storpel::delete() {
 # ----------------------------------------------------------------------------
 # Update method for class Storpel
 # ----------------------------------------------------------------------------
-Storpel::update() {
-  Storpel::create
+Storpel.update() {
+  Storpel.create
 }
 
 # ----------------------------------------------------------------------------
 # Constructor for StorpelUser
 # ----------------------------------------------------------------------------
-StorpelUser::create() {
+StorpelUser.create() {
   # Delegate to Storpel, it'll pick us up through allchildren
-  Storpel::update
+  Storpel.update
 }
 
 # ----------------------------------------------------------------------------
 # Update method for StorpelUser
 # ----------------------------------------------------------------------------
-StorpelUser::update() {
+StorpelUser.update() {
   # Delegate to Storpel, it'll pick us up through allchildren
-  Storpel::update
+  Storpel.update
 }
 
 # ----------------------------------------------------------------------------
 # Destructor for StorpelUser
 # ----------------------------------------------------------------------------
-StorpelUser::delete() {
+StorpelUser.delete() {
   # Delegate to Storpel, it'll pick us up through allchildren
-  Storpel::update
+  Storpel.update
 }
 
 # ----------------------------------------------------------------------------
 # Constructor for class StorpelService
 # ----------------------------------------------------------------------------
-StorpelService::create() {
+StorpelService.create() {
   listenport=`coreval StorpelService listenport`
   servername=`coreval StorpelService servername`
   cat > storpeld.conf << _EOF_
@@ -133,21 +126,21 @@ _EOF_
 # ----------------------------------------------------------------------------
 # Update method for class StorpelService
 # ----------------------------------------------------------------------------
-StorpelService::update() {
-  StorpelService::create
+StorpelService.update() {
+  StorpelService.create
 }
 
 # ----------------------------------------------------------------------------
 # Destructor for class StorpelService
 # ----------------------------------------------------------------------------
-StorpelService::delete() {
+StorpelService.delete() {
   exiterror "Delete not implemented"
 }
 
 # ----------------------------------------------------------------------------
 # Install-time configuration
 # ----------------------------------------------------------------------------
-Module::getconfig() {
+Module.getconfig() {
   cat << _EOF_
   <dict id="StorpelService" type="class">
     <dict id="storpeld">
