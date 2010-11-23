@@ -13,7 +13,7 @@
 # OpenPanel modules.
 
 # Include the shell API wrapper
-. /var/opencore/api/sh/module.sh
+. /var/openpanel/api/sh/module.sh
 
 # ----------------------------------------------------------------------------
 # Constructor for class Storpel
