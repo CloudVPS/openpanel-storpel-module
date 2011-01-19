@@ -1,0 +1,82 @@
+# ============================================================================
+# Storpel.module (c) 2008 Acme Inc.
+# ============================================================================
+module Storpel                < uuid b7b26fd8-6996-4c1b-877f-a0fafd397a58
+                              < version 1.0
+                              < languages en_EN
+                              < apitype commandline
+                              < getconfig true
+                              
+# ============================================================================
+# CLASSES
+# ============================================================================
+class Storpel                 < uuid 5437797e-7a3e-46d8-8bb1-d43ec457e18a
+                              < version 3
+                              < indexing manual
+                              < requires Domain
+                              < shortname storpel
+                              < description Storpel Installation
+                              < title Storpel
+                              < uniquein class
+                              < parentrealm domainsuffix
+                              < allchildren true
+                              < capabilities create delete update
+                              
+    string id                 : Name
+    enum model                : Model
+                              < default Basic
+
+# ----------------------------------------------------------------------------
+class StorpelService          < uuid 9e1c09e6-281e-403f-ae8e-e8d700b892e0
+                              < version 1
+                              < indexing manual
+                              < shortname storpeld
+                              < title Storpel Service
+                              < description Global configuration for Storpels.
+                              < uniquein class
+                              < singleton storpeld
+
+	string id                 : singleton
+    integer listenport        : TCP Listening Port
+    string servername         : Advertised server name
+                              
+# ----------------------------------------------------------------------------
+class StorpelUser             < uuid 27c993d6-3475-4ff4-a2fc-45d15cd4b28a
+                              < version 1
+                              < indexing manual
+                              < requires Storpel
+                              < title Storpel User
+                              < shortname user
+                              < description A user that can log into the Storpel
+                              < uniquein parent
+                              
+    string id				  : Username
+                              < regexp [:username:]
+    password password         : Password
+                              < crypt md5
+
+# ============================================================================
+# ENUMS
+# ============================================================================
+enum model
+    value basic               : Basic model
+    value expert              : Expert model
+    value classic             : Classic model
+
+# ============================================================================
+# AUTHD
+# ============================================================================
+authd fileops
+    match *.storpel           : /etc/storpels
+                              < user root
+                              < group root
+                              < perms 0644
+
+    match storpeld.conf       : /etc
+                              < user root
+                              < group root
+                              < perms 0644
+
+# ----------------------------------------------------------------------------
+authd services
+	    service storpeld

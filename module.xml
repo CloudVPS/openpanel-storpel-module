@@ -1,172 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-# This file is part of OpenPanel - The Open Source Control Panel
-# OpenPanel is free software: you can redistribute it and/or modify it 
-# under the terms of the GNU General Public License as published by the Free 
-# Software Foundation, using version 3 of the License.
-#
-# Please note that use of the OpenPanel trademark may be subject to additional 
-# restrictions. For more information, please visit the Legal Information 
-# section of the OpenPanel website on http://www.openpanel.com/
--->
 <com.openpanel.opencore.module>
-	<!-- This should always be the same name as the module's directory,
-	     i.e. "Modulename.module" -->
 	<name>Storpel.module</name>
-	
-	<!-- The uuid for a module should be generated once and never 
-	     change. -->
 	<uuid>b7b26fd8-6996-4c1b-877f-a0fafd397a58</uuid>
-	
-	<!-- This is an informational version string for the entire module.
-	     Opencore doesn't actually use it for much, any critical version-
-	     based decisions are based on class versions. -->
 	<version>1.0</version>
-	
-	<!-- Language support is still in the works, for now it suffices to
-	     implement English and keep this tag -->
-	<languages en_EN />
-	
-	<!-- The list of classes this module implements -->
-	<classes>
-		<!-- A class name should be globally unique. Only classes that
-		     are mutually exclusive should carry the same name -->
-		<class id="Storpel">
-			<!-- A class uuid should never change, it is used primarily
-			     to distinguish incompatible versions of the same
-			     class, with regards to handling of module up- or
-			     crossrades -->
-			<uuid>5437797e-7a3e-46d8-8bb1-d43ec457e18a</uuid>
-			
-			<!-- This integer should be increased whenever the lay-out
-			     of the class changes in such a way that objects for
-			     an older version need to be converted, i.e. the addition
-			     of mandatory parameters -->
-			<version>1</version>
-			
-			<!-- The 'index' field of an object could be something
-			     selected by the operator (like a username), or
-			     completely irrelevant. In the latter case, the system
-			     will provide a uuid as the main index -->
-			<indexing>manual</indexing>
-
-			<!-- Defines the context of this class: Instances should
-			     have an Actor object as their parent -->			
-			<requires>Domain</requires>
-
-			<!-- The name of this class as visible from the command line
-			     interface. It only needs to be unique in the context of
-			     the parent class -->
-			<shortname>storpel</shortname>
-			
-			<!-- A long description of the object class, as used by the
-			     command line interface or the GUI -->
-			<description>Storpel</description>
-			
-			<!-- If set to true, this will trigger a complete dump of all
-			     child objects alongside the main object when it is updated
-			     -->
-			<allchildren>true</allchildren>
-			
-			<!-- Defines the constraints of the manual index. When set to
-			     'class', index values for this class should be
-			     unique among all instances. When set to 'parent', the
-			     id only needs to be unique among other instances with
-			     the same parent object -->
-			<uniquein>class</uniquein>
-			
-			<!-- FIXME: This value seems to be already supplied by gui.xml
-			     and may become obsolete -->
-			<menuclass>users</menuclass>
-			
-			<!-- Enforce domain/sub-domain relationship on object-ids -->
-			<parentrealm>domainsuffix</parentrealm>
-			
-			<!-- The actual parameters (properties) of this class -->
-			<parameters>
-				<!-- Define a parameter 'model', of the type 'string',
-				     with a description of 'Model' -->
-				<p id="model" type="string">Model</p>
-			</parameters>
-
-			<!-- A list of actions that can be performed on this class -->
-			<capabilities create delete update />
-
-			<!-- Interfacing-related information about the parameters. It's
-			     possible to create competing layouts, selectable by an
-			     enum, with different fields being shown/hidden depending
-			     on the selected enum value. In this example, we have
-			     a singular layout. -->
-			<layout>
-				<opt id="model" enabled visible required regexp="">Basic</opt>
-			</layout>
-		</class>
-		
-		<class id="StorpelService">
-		  <uuid>9e1c09e6-281e-403f-ae8e-e8d700b892e0</uuid>
-		  <version>1</version>
-		  <indexing>manual</indexing>
-		  <shortname>storpeld</shortname>
-		  <description>Global Configuration for the Storpel Service</description>
-		  <allchildren>false</allchildren>
-		  <uniquein>class</uniquein>
-		  <maxinstances>1</maxinstances>
-		  <singleton>storpeld</singleton>
-		  <parameters>
-		    <p id="listenport" type="integer">TCP Listen Port</p>
-		    <p id="servername" type="string">Advertised Server Name</p>
-		  </parameters>
-		  <layout>
-		    <opt id="listenport" enabled visible required regexp="">1337</opt>
-		    <opt id="servername" enabled visible required regexp="">My Storpel Service</opt>
-		  </layout>
-		  <capabilities create update delete />
-		</class>
-		
-		<class id="StorpelUser">
-		  <uuid>8e468547-cc26-4489-b28f-047f3cbeb5ac</uuid>
-		  <version>1</version>
-		  <indexing>manual</indexing>
-		  <requires>Storpel</requires>
-		  <uniquein>parent</uniquein>
-		  <shortname>user</shortname>
-		  <description>Storpel User</description>
-		  <parameters>
-		    <p id="password" type="password" crypt="md5">Password</p>
-		  </parameters>
-		  <layout>
-		    <opt id="password" enabled visible required regexp="" />
-		  </layout>
-		  <capabilities create delete update />
-		</class>
-		  
-	</classes>
-
-	<!-- Basic information about how the module interacts with opencore -->
+	<license/>
+	<author/>
+	<url/>
+	<languages en_EN=""/>
 	<implementation>
-		<!-- This module uses the 'commandline' API, which uses the
-		     environment variable space to communicate parameters.
-		     Another option is 'grace', which uses XML structures
-		     to communicate -->
 		<apitype>commandline</apitype>
-		
-		<!-- If true, an initial set of objects should be provided by
-		     the module when it is first installed. This can be used
-		     to pick up pre-existing configuration from the system at
-		     install time -->
 		<getconfig>true</getconfig>
 	</implementation>
-
-	<!-- Options related to the module's use of authd -->
+	<classes>
+		<class id="Storpel">
+			<uuid>5437797e-7a3e-46d8-8bb1-d43ec457e18a</uuid>
+			<version>3</version>
+			<indexing>manual</indexing>
+			<requires>Domain</requires>
+			<shortname>storpel</shortname>
+			<description>Storpel Installation</description>
+			<title>Storpel</title>
+			<uniquein>class</uniquein>
+			<parentrealm>domainsuffix</parentrealm>
+			<allchildren>true</allchildren>
+			<capabilities create="true" delete="true" update="true"/>
+			<parameters>
+				<p id="id" enabled="true" visible="true" required="true" type="string">Name</p>
+				<p id="model" enabled="true" visible="true" required="true" type="enum" default="Basic">Model</p>
+			</parameters>
+		</class>
+		<class id="StorpelService">
+			<uuid>9e1c09e6-281e-403f-ae8e-e8d700b892e0</uuid>
+			<version>1</version>
+			<indexing>manual</indexing>
+			<shortname>storpeld</shortname>
+			<title>Storpel Service</title>
+			<description>Global configuration for Storpels.</description>
+			<uniquein>class</uniquein>
+			<singleton>storpeld</singleton>
+			<parameters>
+				<p id="id" enabled="true" visible="true" required="true" type="string">singleton</p>
+				<p id="listenport" enabled="true" visible="true" required="true" type="integer">TCP Listening Port</p>
+				<p id="servername" enabled="true" visible="true" required="true" type="string">Advertised server name</p>
+			</parameters>
+		</class>
+		<class id="StorpelUser">
+			<uuid>27c993d6-3475-4ff4-a2fc-45d15cd4b28a</uuid>
+			<version>1</version>
+			<indexing>manual</indexing>
+			<requires>Storpel</requires>
+			<title>Storpel User</title>
+			<shortname>user</shortname>
+			<description>A user that can log into the Storpel</description>
+			<uniquein>parent</uniquein>
+			<parameters>
+				<p id="id" enabled="true" visible="true" required="true" type="string" regexp="[:username:]">Username</p>
+				<p id="password" enabled="true" visible="true" required="true" type="password" crypt="md5">Password</p>
+			</parameters>
+		</class>
+	</classes>
+	<enums>
+		<enum id="model">
+			<value id="basic" val="basic">Basic model</value>
+			<value id="expert" val="expert">Expert model</value>
+			<value id="classic" val="classic">Classic model</value>
+		</enum>
+	</enums>
 	<authdops>
-		<!-- Defined file operations -->
 		<fileops>
-			<!-- Allows all files matching *.storpel from the staging directory
-			     to be installed into the /etc/storpels directory with the
-			     user/group of root/root and a mode of 0644 -->
 			<fileop pattern="*.storpel" user="root" group="root" perms="0644">/etc/storpels</fileop>
 			<fileop pattern="storpeld.conf" user="root" group="root" perms="0644">/etc</fileop>
 		</fileops>
+		<services>
+			<service id="storpeld"/>
+		</services>
 	</authdops>
 </com.openpanel.opencore.module>
-	
