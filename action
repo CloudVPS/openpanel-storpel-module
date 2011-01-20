@@ -71,7 +71,7 @@ Module.getconfig() {
     </dict>
   </openpanel.module>
 _EOF_
-  exit 0
+  exitquiet
 }
 
 implement Storpel.module
