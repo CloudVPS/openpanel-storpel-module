@@ -24,7 +24,7 @@ class Storpel                 < uuid 5437797e-7a3e-46d8-8bb1-d43ec457e18a
                               
     string id                 : Name
     enum model                : Model
-                              < default Basic
+                              < default basic
 
 # ----------------------------------------------------------------------------
 class StorpelService          < uuid 9e1c09e6-281e-403f-ae8e-e8d700b892e0
