@@ -8,7 +8,7 @@
 	<url/>
 	<languages en_EN=""/>
 	<implementation>
-		<apitype>commandline</apitype>
+		<apitype>json</apitype>
 		<getconfig>true</getconfig>
 	</implementation>
 	<classes>
@@ -53,6 +53,7 @@
 			<shortname>user</shortname>
 			<description>A user that can log into the Storpel</description>
 			<uniquein>parent</uniquein>
+			<capabilities create="true" delete="true" update="true"/>
 			<parameters>
 				<p id="id" enabled="true" visible="true" required="true" type="string" regexp="[:username:]">Username</p>
 				<p id="password" enabled="true" visible="true" required="true" type="password" crypt="md5">Password</p>

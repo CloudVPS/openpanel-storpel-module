@@ -49,6 +49,7 @@ class StorpelUser             < uuid 27c993d6-3475-4ff4-a2fc-45d15cd4b28a
                               < shortname user
                               < description A user that can log into the Storpel
                               < uniquein parent
+                              < capabilities create delete update
                               
     string id				  : Username
                               < regexp [:username:]
