@@ -8,7 +8,7 @@
 	<url/>
 	<languages en_EN=""/>
 	<implementation>
-		<apitype>json</apitype>
+		<apitype>commandline</apitype>
 		<getconfig>true</getconfig>
 	</implementation>
 	<classes>
